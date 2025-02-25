@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earth Orbiting Sun</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000; /* Space background */
+            overflow: hidden;
+            flex-direction: column;
+            position: relative;
+        }
+
+/* Message Display */
+        .message {
+            position: absolute;
+            top: 90px;
+            color: white;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            text-align: center;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* New text-shadow effects */
+        .shadow1 { text-shadow: 3px 3px 5px red, -3px -3px 5px yellow; }
+        .shadow2 { text-shadow: 5px 5px 8px cyan, -5px -5px 8px magenta; }
+        .shadow3 { text-shadow: 7px 7px 12px lime, -7px -7px 12px blue; }
+        .shadow4 { text-shadow: 10px 10px 15px orange, -10px -10px 15px purple; }
+        .shadow5 { text-shadow: 12px 12px 20px pink, -12px -12px 20px green; }
+
+        /* Twinkling stars */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(white, transparent 2%) 5px 5px / 3px 3px,
+                        radial-gradient(white, transparent 2%) 50px 50px / 2px 2px,
+                        radial-gradient(white, transparent 2%) 100px 100px / 2px 2px;
+            background-size: 200px 200px;
+            animation: twinkle 3s infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.5; }
+        }
+
+        /* The Sun */
+        .sun {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(closest-corner at 50% 50%, yellow, orange, red);
+            box-shadow: 0 0 20px 20px rgba(255, 165, 0, 0.8);
+        }
+
+        /* The Earth's Orbit */
+        .orbit {
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            border-radius: 50%;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* The Earth */
+        .earth {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, blue, green);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            animation: orbitEarth 5s linear infinite;
+        }
+
+        @keyframes orbitEarth {
+            0% { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+        }
+
+        /* Spaceship flying up (now starts from the left side) */
+        .spaceship {
+            width: 100px;
+            height: auto;
+            position: absolute;
+            bottom: -120px;
+            left: 20%; /* Starts from the left */
+            opacity: 0.8;
+            animation: flyUp 5s linear infinite;
+        }
+
+        @keyframes flyUp {
+            0% { bottom: -120px; opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { bottom: 100vh; opacity: 0; }
+        }
+
+        /* Spaceship moving continuously to the right */
+        .spaceship-horizontal {
+            width: 80px;
+            height: auto;
+            position: absolute;
+            top: 30%;
+            left: -100px;
+            opacity: 0.8;
+            animation: flyRight 6s linear infinite;
+        }
+
+        @keyframes flyRight {
+            0% { left: -100px; }
+            100% { left: 100vw; }
+        }
+
+        /* Spaceship at the top - moves slightly left and right, stays, then hides */
+        .spaceship-vertical {
+            width: 80px;
+            height: auto;
+            position: absolute;
+            top: 20px;
+            right: 20%;
+            opacity: 0;
+            animation: floatAndHide 8s linear infinite;
+        }
+
+        @keyframes floatAndHide {
+            0% { opacity: 0; transform: translateX(0); }  /* Hidden */
+            20% { opacity: 1; transform: translateX(10px); } /* Appears & moves slightly */
+            50% { opacity: 1; transform: translateX(-10px); } /* Moves left */
+            80% { opacity: 1; transform: translateX(5px); } /* Moves slightly right */
+            100% { opacity: 0; transform: translateX(0); } /* Fades out */
+        }
+
+    </style>
+</head>
+<body>
+<div class="message shadow1">Hello!</div>
+    <!-- Twinkling stars background -->
+    <div class="stars"></div>
+
+    <div class="sun"></div>
+    <div class="orbit">
+        <div class="earth"></div>
+    </div>
+
+    <!-- Spaceship flying up (now from left) -->
+    <img class="spaceship" src="roc.gif" alt="Spaceship">
+
+    <!-- Spaceship moving continuously to the right -->
+    <img class="spaceship-horizontal" src="toright.gif" alt="Spaceship Horizontal">
+
+    <!-- Spaceship at the top - moves slightly and hides -->
+    <img class="spaceship-vertical" src="tobottom.gif" alt="Spaceship Vertical">
+<script>
+        const messages = ["Hello!", "How are you?", "Enjoy the orbit!", "Almost there!", "Back to start!"];
+        const shadows = ["shadow1", "shadow2", "shadow3", "shadow4", "shadow5"];
+        const messageElement = document.querySelector(".message");
+        let index = 0;
+
+        function updateMessage() {
+            messageElement.textContent = messages[index];
+            messageElement.className = "message " + shadows[index];
+            index = (index + 1) % messages.length;
+        }
+
+        setInterval(updateMessage, 1000);
+    </script>
+</body>
+</html>
