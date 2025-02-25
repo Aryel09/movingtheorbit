@@ -76,16 +76,21 @@
             align-items: center;
         }
 
-        /* The Earth */
-        .earth {
-            width: 40px;
-            height: 40px;
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, blue, green);
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
-            animation: orbitEarth 5s linear infinite;
-        }
+        
+      /* The Earth */
+.earth {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    border-radius: 50%;
+    background-image: url('earth.jpeg'); /* Replace with actual image path */
+    background-size: cover;
+    background-position: center;
+ background-size: 150% 150%;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    animation: orbitEarth 5s linear infinite;
+}
+
 
         @keyframes orbitEarth {
             0% { transform: rotate(0deg) translateX(150px) rotate(0deg); }
